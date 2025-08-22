@@ -52,7 +52,7 @@ NSString *const kWebSiteURL = @"https://github.com/jcfieldsdev/font-converter";
         tableColumn.sortDescriptorPrototype = sortDescriptor;
     }
     
-    [self.tableView registerForDraggedTypes:@[NSFilenamesPboardType]];
+    [self.tableView registerForDraggedTypes:@[NSPasteboardTypeFileURL]];
     [self.tableView setDraggingSourceOperationMask:NSDragOperationEvery forLocal:NO];
     self.tableView.allowsMultipleSelection = YES;
 }
@@ -93,7 +93,10 @@ NSString *const kWebSiteURL = @"https://github.com/jcfieldsdev/font-converter";
 }
 
 - (void)processQueue {
-    for (Font *font in [self.fileController fonts]) {
+    // Create a snapshot of fonts to avoid race conditions
+    NSArray *fontsSnapshot = [[self.fileController fonts] copy];
+    
+    for (Font *font in fontsSnapshot) {
         // processes queue items asynchronously
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             if ([font status] == kStatusIncomplete) {
@@ -101,7 +104,7 @@ NSString *const kWebSiteURL = @"https://github.com/jcfieldsdev/font-converter";
             }
             
             // reloads table data after processing done
-            dispatch_sync(dispatch_get_main_queue(), ^{
+            dispatch_async(dispatch_get_main_queue(), ^{
                 [self reloadData];
                 [self validateToolbar];
             });

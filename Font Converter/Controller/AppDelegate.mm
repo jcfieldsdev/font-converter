@@ -70,7 +70,14 @@
 
 // handles files received from Services menu
 - (void)handleService:(NSPasteboard *)pasteboard userData:(NSString *)userData error:(NSString **)error {
-    [self openPaths:[pasteboard propertyListForType:NSFilenamesPboardType]];
+    NSArray *fileURLs = [pasteboard readObjectsForClasses:@[[NSURL class]] options:@{NSPasteboardURLReadingFileURLsOnlyKey: @YES}];
+    NSMutableArray *filePaths = [NSMutableArray array];
+    
+    for (NSURL *url in fileURLs) {
+        [filePaths addObject:[url path]];
+    }
+    
+    [self openPaths:filePaths];
     [NSApp replyToOpenOrPrint:NSApplicationDelegateReplySuccess];
 }
 

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2020 J.C. Fields (jcfields@jcfields.dev).
+ * Updated Augsut 2025 by Disky_eth (https://github.com/Diskyeth)
  *
  * The contents of this file are subject to the Mozilla Public License Version
  * 1.1 (the "License"); you may not use this file except in compliance with
@@ -25,10 +26,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ConvertedFont : NSObject
 
-@property(retain) NSURL *originalURL;
-@property(retain) NSURL *convertedURL;
+@property(strong) NSURL *originalURL;
+@property(strong) NSURL *convertedURL;
 @property(assign) NSUInteger convertedSize;
-@property(retain) NSData *contents;
+@property(strong) NSData *contents;
 @property(assign) NSUInteger format;
 
 - (instancetype)initWithURL:(NSURL *)URL contents:(NSData *)contents format:(NSUInteger)format;
