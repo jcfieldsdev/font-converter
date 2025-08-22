@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2020 J.C. Fields (jcfields@jcfields.dev).
+ * Updated Augsut 2025 by Disky_eth (https://github.com/Diskyeth)
  *
  * The contents of this file are subject to the Mozilla Public License Version
  * 1.1 (the "License"); you may not use this file except in compliance with
@@ -51,14 +52,14 @@ FOUNDATION_EXPORT NSArray *const kFileFormats;
 
 @interface Font : NSObject <NSPasteboardReading>
 
-@property(retain) NSURL *URL;
+@property(strong) NSURL *URL;
 @property(assign) NSUInteger size;
 @property(assign) float ratio;
 @property(assign) NSUInteger format;
 @property(assign) NSUInteger status;
 @property(copy) NSString *familyName;
 @property(assign) NSUInteger traits;
-@property(retain) NSMutableArray *products;
+@property(strong) NSMutableArray *products;
 
 - (instancetype)initWithURL:(NSURL *)URL;
 - (BOOL)convertFormat;

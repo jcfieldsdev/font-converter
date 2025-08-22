@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2020 J.C. Fields (jcfields@jcfields.dev).
+ * Updated Augsut 2025 by Disky_eth (https://github.com/Diskyeth)
  *
  * The contents of this file are subject to the Mozilla Public License Version
  * 1.1 (the "License"); you may not use this file except in compliance with
@@ -25,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TableRow : NSObject
 
-@property(retain) Font *font;
+@property(strong) Font *font;
 @property(weak, readonly) NSString *name;
 @property(assign, readonly) NSUInteger size;
 @property(weak, readonly) NSString *format;
